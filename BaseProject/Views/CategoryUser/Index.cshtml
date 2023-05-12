@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BaseProject.Models.EF.Category>
+
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Category</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+        </td>*@
+        <td>
+            @*@Html.ActionLink("Product", "ProductUser", new { id = item.CategoryName })*@ 
+
+            @*<div class="card-tools">
+            <a href="Product/Index" class="btn btn-primary">Product</a>
+        </div>*@
+            @*<div class="card-tools">
+                <a href="@Url.Action("Index", "ProductUser", new { id = item.Id })" class="btn btn-primary">Product</a>
+            </div>*@
+        </td>
+    </tr>
+}
+
+</table>
