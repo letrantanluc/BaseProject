@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BaseProject.Models.EF;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -58,7 +60,11 @@ namespace BaseProject.Areas.Admin.Controllers
                 return Json(new { success = false, message = "Lỗi xóa role: " + ex.Message });
             }
         }
+
+
         
+        
+
 
     }
 }

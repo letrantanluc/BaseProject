@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -62,6 +63,44 @@ namespace BaseProject.Areas.Admin.Controllers
         {
             ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //public ActionResult Delete(string username)
+        //{
+        //    var user = UserManager.FindByName(username);
+        //    if (user != null)
+        //    {
+        //        var result = UserManager.Delete(user);
+        //        if (result.Succeeded)
+        //        {
+        //            return Json(new { success = true });
+        //        }
+        //        else
+        //        {
+        //            return Json(new { success = false, error = "Không thể xóa người dùng." });
+        //        }
+        //    }
+
+        //    return Json(new { success = false, error = "Người dùng không tồn tại." });
+        //}
+        public async Task<ActionResult> Delete(string username)
+        {
+            var user = await UserManager.FindByNameAsync(username);
+            if (user != null)
+            {
+                var result = await UserManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, error = "Không thể xóa người dùng." });
+                }
+            }
+
+            return Json(new { success = false, error = "Người dùng không tồn tại." });
         }
 
         //

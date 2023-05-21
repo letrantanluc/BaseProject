@@ -73,5 +73,7 @@ namespace BaseProject.Service
             var cart = GetCartItems();
             cart.Clear();
         }
+
+        
     }
 }

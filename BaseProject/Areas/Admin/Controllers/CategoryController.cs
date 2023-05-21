@@ -10,8 +10,10 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
+       
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Category
         public ActionResult Index()

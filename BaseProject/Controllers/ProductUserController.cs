@@ -16,7 +16,12 @@ namespace BaseProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ProductUser
-        public ActionResult Index(int id)
+        public ActionResult Index()
+        {
+            var products = db.Products.Include(p => p.Category);
+            return View(products.ToList());
+        }
+        public ActionResult ListProductCategory(int id)
         {
             //var products = db.Products.Include(p => p.Category);
             //return View(products.ToList());
@@ -31,12 +36,6 @@ namespace BaseProject.Controllers
             }
             return View(products);
         }
-        public ActionResult ListProduct()
-        {
-            var products = db.Products.Include(p => p.Category);
-            return View(products.ToList());
-        }
-
 
         // GET: ProductUser/Details/5
         public ActionResult Details(int? id)
@@ -50,6 +49,8 @@ namespace BaseProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Created_At = product.Created_At.ToString("dd/MM/yyyy");
+            ViewBag.Updated_At = product.Updated_At.ToString("dd/MM/yyyy");
             return View(product);
         }
 
@@ -69,6 +70,8 @@ namespace BaseProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.Created_At = DateTime.Now;
+                product.Updated_At= DateTime.Now;
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -91,6 +94,7 @@ namespace BaseProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", product.CategoryId);
+        
             return View(product);
         }
 
@@ -107,7 +111,9 @@ namespace BaseProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", product.CategoryId);
+          
             return View(product);
         }
 
@@ -135,6 +141,16 @@ namespace BaseProject.Controllers
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public string ProcessUpload(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                return "";
+            }
+            file.SaveAs(Server.MapPath("~/Content/images/" + file.FileName));
+            return "/Content/images/" + file.FileName;
         }
 
         protected override void Dispose(bool disposing)

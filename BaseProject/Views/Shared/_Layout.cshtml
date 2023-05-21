@@ -24,10 +24,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
                     <li>@Html.ActionLink("Category", "Index", "CategoryUser")</li>
-                    
-                    <li>@Html.ActionLink("Product", "ListProduct", "ProductUser")</li>
+
+                    <li>@Html.ActionLink("Product", "Index", "ProductUser")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.Partial("~/Views/Cart/_CartPartial.cshtml")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -40,7 +42,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+    @RenderSection("upload", required: false)
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

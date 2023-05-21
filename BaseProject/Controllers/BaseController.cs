@@ -7,13 +7,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BaseProject.Controllers
 {
     public class BaseController<T> : Controller where T : class
     {
-        public ApplicationDbContext Context;
-       
+        public ApplicationDbContext Context = new ApplicationDbContext();
 
         public void Add(T entity)
         {
