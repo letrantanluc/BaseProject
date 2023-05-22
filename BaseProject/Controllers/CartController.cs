@@ -22,6 +22,7 @@ namespace BaseProject.Controllers
         public ActionResult Index()
         {
             var cart = _cartManager.GetCartItems();
+            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
             if (cart.Count() < 1)
             {
                 return RedirectToAction("Index", "Home");
@@ -95,6 +96,16 @@ namespace BaseProject.Controllers
             _cartManager.ClearCart();
 
             return Json(new { success = true });
+        }
+        private int TongSoLuongSanPham()
+        {
+            int totalQuantity = 0;
+            var cartItems = _cartManager.GetCartItems();
+            if (cartItems != null)
+            {
+                totalQuantity = cartItems.Sum(item => item.Quantity);
+            }
+            return totalQuantity;
         }
     }
 

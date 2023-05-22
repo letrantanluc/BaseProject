@@ -1,0 +1,118 @@
+﻿@model IEnumerable<BaseProject.Models.EF.Product>
+
+@{
+    ViewBag.Title = "ListProductCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListProductCategory</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created_At)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated_At)
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.image)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created_At)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated_At)
+            </td>*@
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+            @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+            @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+            <button class="btn btn-danger add-to-cart" data-product-id="@item.Id">Add to Cart</button>
+        </td>
+        </tr>
+    }
+
+</table>
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart').click(function (e) {
+            e.preventDefault();
+            var productId = $(this).data('product-id');
+            var quantity = 1;
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'POST',
+                data: { productId: productId, quantity: quantity },
+                success: function (data) {
+                    alert("Thêm thành công");
+                    // Thực hiện các thay đổi trên giao diện để hiển thị giỏ hàng mới nhất
+                },
+                error: function () {
+                    alert('An error occurred while adding to cart.');
+                }
+            });
+        });
+    });
+</script>

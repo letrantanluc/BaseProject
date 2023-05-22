@@ -11,10 +11,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin" class="nav-link">@ViewBag.Title</a>
+            <a href="/admin/account" class="nav-link">@ViewBag.Title</a>
         </li>
     </ul>
 }
@@ -74,3 +74,35 @@
 
 </section>
 <!-- /.content -->
+@section scripts{
+        <script>
+            $(document).ready(function () {
+                $('.btnDelete').click(function () {
+                    var userName = $(this).data('user');
+
+                    if (confirm('Bạn có chắc chắn muốn xóa người dùng ' + userName + ' không?')) {
+                        $.ajax({
+                            url: '/admin/account/delete',
+                            type: 'POST',
+                            data: { userName: userName },
+                            success: function (result) {
+                                if (result.success) {
+                                    // Xóa hàng người dùng khỏi bảng
+                                    $(this).closest('tr').remove();
+                                    alert('Xóa người dùng thành công!');
+                                } else {
+                                    alert('Đã xảy ra lỗi khi xóa người dùng: ' + result.error);
+                                }
+                            },
+                            error: function () {
+                                alert('Đã xảy ra lỗi khi xóa người dùng!');
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    }
+
+
+

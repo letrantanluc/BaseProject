@@ -110,7 +110,11 @@ namespace BaseProject.Models
         [Display(Name = "Address")]
         public string Address { get; set; }
 
-  
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+
         [Display(Name = "Introduction")]
         public string Introduction { get; set; }
 

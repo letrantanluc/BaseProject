@@ -9,12 +9,14 @@ using System.Web.Mvc;
 
 namespace BaseProject.Controllers
 {
+    [Authorize]
     public class OrderController : BaseController<Order>
     {
         private readonly CartManager _cartManager;
         public OrderController()
         {
             _cartManager = new CartManager();
+
         }
         public static bool ValidateVNPhoneNumber(string phoneNumber)
         {
@@ -33,6 +35,11 @@ namespace BaseProject.Controllers
         public ActionResult CheckOut()
         {
             var cart = _cartManager.GetCartItems();
+            if (!User.Identity.IsAuthenticated)
+            {
+                // Người dùng chưa đăng nhập, chuyển hướng về trang đăng nhập
+                return RedirectToAction("Login", "Account");
+            }
             if (cart.Count() < 1)
             {
                 return RedirectToAction("Index", "Home");
@@ -129,7 +136,8 @@ namespace BaseProject.Controllers
                     order.Total = totalOrder;
                     Update(order);
                     _cartManager.ClearCart();
-
+                 
+                    
 
                     return RedirectToAction("CompleteOrder", "Order");
                 }

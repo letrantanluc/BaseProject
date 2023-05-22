@@ -67,14 +67,19 @@
             <td colspan="5">Total:</td>
             <td colspan="4">@Model.Sum(item => (item.Price * item.Quantity)).ToString("N0")đ</td>
         </tr>
-        <div class="proceed-check">
-            <a href="@Url.Action("CheckOut","Order")" class="btn-primary-gold btn-medium">THANH TOÁN</a>
-        </div>
+        
     </tbody>
     </table>
 
 <div>
     <button class="btn-clear clear">Clear Cart</button>
+</div>
+
+<div class="proceed-check">
+    @*<button href="@Url.Action("CheckOut","Order")"  class="btn-primary-gold btn-medium">THANH TOÁN </button>*@
+    @*<a href="@Url.Action("CheckOut","Order")"  class="btn-primary-gold btn-medium">THANH TOÁN</a>*@
+    <button onclick="location.href='@Url.Action("CheckOut","Order")'" class="btn-primary-gold btn-medium"> THANH TOÁN</button>
+
 </div>
 
 <script type="text/javascript">

@@ -80,15 +80,19 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Created_At)
+
+            @*@Html.DisplayFor(model => model.Created_At)*@
+            @ViewBag.Created_At
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Updated_At)
+           
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Updated_At)
+            @*@Html.DisplayFor(model => model.Updated_At)*@
+            @ViewBag.Updated_At
         </dd>
 
     </dl>

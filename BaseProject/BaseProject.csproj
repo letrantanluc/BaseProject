@@ -250,6 +250,10 @@
     <Compile Include="Migrations\202305120434194_test.designer.cs">
       <DependentUpon>202305120434194_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305180601432_updatenew.cs" />
+    <Compile Include="Migrations\202305180601432_updatenew.designer.cs">
+      <DependentUpon>202305180601432_updatenew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EF\CartItem.cs" />
@@ -3265,7 +3269,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -3287,20 +3290,23 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Order\CheckOut.cshtml" />
+    <Content Include="Views\CategoryUser\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Order\CompleteOrder.cshtml" />
     <Content Include="Views\ProductUser\Create.cshtml" />
     <Content Include="Views\ProductUser\Delete.cshtml" />
     <Content Include="Views\ProductUser\Details.cshtml" />
     <Content Include="Views\ProductUser\Edit.cshtml" />
     <Content Include="Views\ProductUser\Index.cshtml" />
-    <Content Include="Views\CategoryUser\Index.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\Order\CompleteOrder.cshtml" />
-    <Content Include="Views\ProductUser\ListProduct.cshtml" />
+    <Content Include="Views\ProductUser\ListProductCategory.cshtml" />
+    <Content Include="Views\Cart\_CartPartial.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\ckfinder\userfiles\" />
+    <Folder Include="Content\images\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -3322,6 +3328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305120434194_test.resx">
       <DependentUpon>202305120434194_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305180601432_updatenew.resx">
+      <DependentUpon>202305180601432_updatenew.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class NewController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
