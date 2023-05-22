@@ -48,6 +48,107 @@ namespace BaseProject.Controllers
             return View();
         }
         [HttpPost]
+        //public ActionResult CheckOut(FormCollection formCollection)
+        //{
+        //    List<string> errors = new List<string>();
+        //    try
+        //    {
+        //        var CustomerName = formCollection["CustomerName"];
+        //        var PhoneNumber = formCollection["PhoneNumber"];
+        //        var Address = formCollection["Address"];
+        //        var Payment = formCollection["Payment"];
+
+
+        //        if (string.IsNullOrEmpty(CustomerName))
+        //        {
+        //            errors.Add("Vui lòng nhập tên.");
+        //        }
+
+        //        if (string.IsNullOrEmpty(Address))
+        //        {
+        //            errors.Add("Vui lòng nhập địa chỉ.");
+        //        }
+
+        //        if (ValidateVNPhoneNumber(PhoneNumber) != true)
+        //        {
+        //            errors.Add("Số điện thoại không hợp lệ.");
+        //        }
+
+        //        switch (Payment)
+        //        {
+        //            case "cash":
+        //            case "momo":
+        //                break;
+        //            default:
+        //                errors.Add("Phương thức thanh toán không hợp lệ.");
+        //                break;
+        //        }
+
+        //        if (errors.Count == 0)
+        //        {
+        //            Order order = new Order();
+
+        //            string code = RandomString(12);
+        //            order.Code = code;
+        //            order.CustomerName = CustomerName;
+        //            order.PhoneNumber = PhoneNumber;
+        //            order.Address = Address;
+        //            order.Payment = Payment;
+
+
+        //            //Add(order);
+        //            Session["orderCode"] = code;
+        //            // Lấy tổng tiền từ giỏ hàng
+        //            var cart = _cartManager.GetCartItems();
+        //            decimal totalOrder = 0;
+        //            foreach (var item in cart)
+        //            {
+        //                var itemTotal = item.Price * item.Quantity; // giá sản phẩm
+
+
+        //                totalOrder += itemTotal;
+        //            }
+        //            order.Total = totalOrder;
+        //            Session["order"] = order;
+        //            totalOrder = 0;
+
+
+        //            foreach (var item in cart)
+        //            {
+        //                var itemTotal = item.Price * item.Quantity;
+        //                foreach (var option in cart)
+        //                {
+        //                    itemTotal += option.Price * item.Quantity;
+        //                }
+        //                OrderDetail orderDetail = new OrderDetail();
+        //                orderDetail.Order = order;
+        //                orderDetail.ProductId = item.ProductId;
+
+        //                orderDetail.Price = item.Price;
+        //                orderDetail.Total = itemTotal;
+        //                orderDetail.Quantity = item.Quantity;
+        //                totalOrder += itemTotal;
+        //                Context.OrderDetails.Add(orderDetail);
+        //                Context.SaveChanges();
+        //            }
+        //            //Cập nhật tổng số tiền
+        //            order.Total = totalOrder;
+        //            Update(order);
+        //            _cartManager.ClearCart();
+
+
+
+        //            return RedirectToAction("CompleteOrder", "Order");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        errors.Add(ex.Message);
+        //    }
+        //    TempData["Errors"] = errors;
+        //    return RedirectToAction("CheckOut", "Order");
+        //}
+
         public ActionResult CheckOut(FormCollection formCollection)
         {
             List<string> errors = new List<string>();
@@ -78,7 +179,6 @@ namespace BaseProject.Controllers
                 {
                     case "cash":
                     case "momo":
-                    case "vnpay":
                         break;
                     default:
                         errors.Add("Phương thức thanh toán không hợp lệ.");
@@ -111,34 +211,37 @@ namespace BaseProject.Controllers
                     }
                     order.Total = totalOrder;
                     Session["order"] = order;
-                    totalOrder = 0;
-
-
-                    foreach (var item in cart)
-                    {
-                        var itemTotal = item.Price * item.Quantity;
-                        foreach (var option in cart)
-                        {
-                            itemTotal += option.Price * item.Quantity;
-                        }
-                        OrderDetail orderDetail = new OrderDetail();
-                        orderDetail.Order = order;
-                        orderDetail.ProductId = item.ProductId;
-
-                        orderDetail.Price = item.Price;
-                        orderDetail.Total = itemTotal;
-                        orderDetail.Quantity = item.Quantity;
-                        totalOrder += itemTotal;
-                        Context.OrderDetails.Add(orderDetail);
-                        Context.SaveChanges();
-                    }
-                    //Cập nhật tổng số tiền
-                    order.Total = totalOrder;
-                    Update(order);
-                    _cartManager.ClearCart();
-                 
                     
+                    switch (Payment)
+                    {
+                        case "momo":
+                            return RedirectToAction("MomoPay", "Pay");
+                        default:
+                            totalOrder = 0;
+                            foreach (var item in cart)
+                            {
+                                var itemTotal = item.Price * item.Quantity;
+                                foreach (var option in cart)
+                                {
+                                    itemTotal += option.Price * item.Quantity;
+                                }
+                                OrderDetail orderDetail = new OrderDetail();
+                                orderDetail.Order = order;
+                                orderDetail.ProductId = item.ProductId;
 
+                                orderDetail.Price = item.Price;
+                                orderDetail.Total = itemTotal;
+                                orderDetail.Quantity = item.Quantity;
+                                totalOrder += itemTotal;
+                                Context.OrderDetails.Add(orderDetail);
+                                Context.SaveChanges();
+                            }
+                            //Cập nhật tổng số tiền
+                            order.Total = totalOrder;
+                            Update(order);
+                            _cartManager.ClearCart();
+                            break;
+                    }    
                     return RedirectToAction("CompleteOrder", "Order");
                 }
             }
@@ -149,6 +252,7 @@ namespace BaseProject.Controllers
             TempData["Errors"] = errors;
             return RedirectToAction("CheckOut", "Order");
         }
+       
         //[Route("Order/SearchOrder")]
         //public ActionResult SearchOrder()
         //{
