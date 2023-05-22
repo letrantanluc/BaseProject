@@ -29,6 +29,8 @@ namespace BaseProject.Models.EF
         public string Address { get; set; }
         public string Payment { get; set; }
         public decimal Total { get; set; }
+
+        public int Paid { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public ICollection<OrderDetail> OrderDetails { get; set; }

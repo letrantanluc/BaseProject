@@ -28,7 +28,7 @@ namespace BaseProject.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Detail,Images,CategoryId")] New @new)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Detail,Images,CategoryId,IsActive")] New @new)
         {
             if (ModelState.IsValid)
             {
@@ -70,6 +70,54 @@ namespace BaseProject.Areas.Admin.Controllers
             }
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", @new.CategoryId);
             return View(@new);
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var item = db.News.Find(id);
+            if (item != null)
+            {
+                db.News.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.News.Find(id);
+            if (item != null)
+            {
+                item.IsActive = !item.IsActive;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isAcive = item.IsActive });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (!string.IsNullOrEmpty(ids))
+            {
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.News.Find(Convert.ToInt32(item));
+                        db.News.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
     }
 }
