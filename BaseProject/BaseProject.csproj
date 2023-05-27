@@ -78,6 +78,12 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.7.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -237,6 +243,7 @@
     <Compile Include="Areas\Admin\Controllers\NewController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -265,8 +272,30 @@
     <Compile Include="Migrations\202305220712373_update-model.designer.cs">
       <DependentUpon>202305220712373_update-model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305230352193_AddRole.cs" />
+    <Compile Include="Migrations\202305230352193_AddRole.designer.cs">
+      <DependentUpon>202305230352193_AddRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305230420509_deleterole.cs" />
+    <Compile Include="Migrations\202305230420509_deleterole.designer.cs">
+      <DependentUpon>202305230420509_deleterole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305230438223_update.cs" />
+    <Compile Include="Migrations\202305230438223_update.designer.cs">
+      <DependentUpon>202305230438223_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305251735272_updateOrderandCart.cs" />
+    <Compile Include="Migrations\202305251735272_updateOrderandCart.designer.cs">
+      <DependentUpon>202305251735272_updateOrderandCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305271455587_addAliasinNews.cs" />
+    <Compile Include="Migrations\202305271455587_addAliasinNews.designer.cs">
+      <DependentUpon>202305271455587_addAliasinNews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Common\Filter.cs" />
+    <Compile Include="Models\EF\AspNetUserRoles.cs" />
     <Compile Include="Models\EF\CartItem.cs" />
     <Compile Include="Models\EF\Category.cs" />
     <Compile Include="Models\EF\Message.cs" />
@@ -277,6 +306,8 @@
     <Compile Include="Models\EF\Payment.cs" />
     <Compile Include="Models\EF\Product.cs" />
     <Compile Include="Models\EF\ResultMomo.cs" />
+    <Compile Include="Models\EF\Role.cs" />
+    <Compile Include="Models\EF\User.cs" />
     <Compile Include="Models\EF\Wishlist.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -3128,6 +3159,9 @@
     <Content Include="Content\assets\dist\js\pages\dashboard.js" />
     <Content Include="Content\assets\dist\js\pages\dashboard2.js" />
     <Content Include="Content\assets\dist\js\pages\dashboard3.js" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\templates\send1.html" />
+    <Content Include="Content\templates\send2.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -3261,6 +3295,7 @@
     <Content Include="Content\assets\dist\js\.eslintrc.json" />
     <Content Include="Content\assets\dist\js\adminlte.js.map" />
     <Content Include="Content\assets\dist\js\adminlte.min.js.map" />
+    <Content Include="Areas\Admin\Views\Role\setrole.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3351,6 +3386,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305220712373_update-model.resx">
       <DependentUpon>202305220712373_update-model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305230352193_AddRole.resx">
+      <DependentUpon>202305230352193_AddRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305230420509_deleterole.resx">
+      <DependentUpon>202305230420509_deleterole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305230438223_update.resx">
+      <DependentUpon>202305230438223_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305251735272_updateOrderandCart.resx">
+      <DependentUpon>202305251735272_updateOrderandCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305271455587_addAliasinNews.resx">
+      <DependentUpon>202305271455587_addAliasinNews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

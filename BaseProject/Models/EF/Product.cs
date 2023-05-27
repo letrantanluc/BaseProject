@@ -28,6 +28,8 @@ namespace BaseProject.Models.EF
         public decimal Price { get; set; }
         public string image { get; set; }
         public string Status { get; set; }
+
+       
         public int Quantity { get; set; }
         public string Location { get; set; }
         public DateTime Created_At { get; set; } = DateTime.Now;

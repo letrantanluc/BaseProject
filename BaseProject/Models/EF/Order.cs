@@ -30,6 +30,8 @@ namespace BaseProject.Models.EF
         public string Payment { get; set; }
         public decimal Total { get; set; }
 
+        public string Email { get; set; }
+
         public int Paid { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
