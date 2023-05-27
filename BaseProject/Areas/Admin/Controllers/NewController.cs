@@ -1,5 +1,6 @@
 ﻿using BaseProject.Models;
 using BaseProject.Models.EF;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,17 +11,40 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "tanluc")]
     public class NewController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/New
-        public ActionResult Index()
+        //Index có phân trang
+        public ActionResult Index(string Searchtext, int? page)
         {
-            var items = db.News.OrderByDescending(x => x.Id).ToList();
-
+            var pageSize = 10;
+            if(page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<New> items = db.News.OrderByDescending(x => x.Id);
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+                
+                items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+             items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = page;
             return View(items);
         }
+
+        // Index bth
+        //public ActionResult Index()
+        //{
+            
+        //    var items = db.News.OrderByDescending(x => x.Id).ToList();
+        //    return View(items);
+
+        //}
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName");
@@ -32,6 +56,7 @@ namespace BaseProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                @new.Alias = BaseProject.Models.Common.Filter.FilterChar(@new.Title);
                 db.News.Add(@new);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -64,6 +89,7 @@ namespace BaseProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                @new.Alias = BaseProject.Models.Common.Filter.FilterChar(@new.Title);
                 db.Entry(@new).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

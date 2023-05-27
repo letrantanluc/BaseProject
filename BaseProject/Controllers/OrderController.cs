@@ -2,6 +2,7 @@
 using BaseProject.Service;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -48,6 +49,7 @@ namespace BaseProject.Controllers
             return View();
         }
         [HttpPost]
+        // CheckOut ko có momo
         //public ActionResult CheckOut(FormCollection formCollection)
         //{
         //    List<string> errors = new List<string>();
@@ -149,6 +151,149 @@ namespace BaseProject.Controllers
         //    return RedirectToAction("CheckOut", "Order");
         //}
 
+        // CheckOut có momo
+        //public ActionResult CheckOut(FormCollection formCollection)
+        //{
+        //    List<string> errors = new List<string>();
+        //    try
+        //    {
+        //        var CustomerName = formCollection["CustomerName"];
+        //        var PhoneNumber = formCollection["PhoneNumber"];
+        //        var Address = formCollection["Address"];
+        //        var Payment = formCollection["Payment"];
+
+
+        //        if (string.IsNullOrEmpty(CustomerName))
+        //        {
+        //            errors.Add("Vui lòng nhập tên.");
+        //        }
+
+        //        if (string.IsNullOrEmpty(Address))
+        //        {
+        //            errors.Add("Vui lòng nhập địa chỉ.");
+        //        }
+
+        //        if (ValidateVNPhoneNumber(PhoneNumber) != true)
+        //        {
+        //            errors.Add("Số điện thoại không hợp lệ.");
+        //        }
+
+        //        switch (Payment)
+        //        {
+        //            case "cash":
+        //            case "momo":
+        //                break;
+        //            default:
+        //                errors.Add("Phương thức thanh toán không hợp lệ.");
+        //                break;
+        //        }
+
+        //        if (errors.Count == 0)
+        //        {
+        //            Order order = new Order();
+
+        //            string code = RandomString(12);
+        //            order.Code = code;
+        //            order.CustomerName = CustomerName;
+        //            order.PhoneNumber = PhoneNumber;
+        //            order.Address = Address;
+        //            order.Payment = Payment;
+
+
+        //            //Add(order);
+        //            Session["orderCode"] = code;
+        //            // Lấy tổng tiền từ giỏ hàng
+        //            var cart = _cartManager.GetCartItems();
+        //            decimal totalOrder = 0;
+        //            foreach (var item in cart)
+        //            {
+        //                var itemTotal = item.Price * item.Quantity; // giá sản phẩm
+
+
+        //                totalOrder += itemTotal;
+        //            }
+        //            order.Total = totalOrder;
+        //            Session["order"] = order;
+
+        //            switch (Payment)
+        //            {
+        //                case "momo":
+        //                    return RedirectToAction("MomoPay", "Pay");
+        //                default:
+        //                    totalOrder = 0;
+        //                    foreach (var item in cart)
+        //                    {
+        //                        var itemTotal = item.Price * item.Quantity;
+        //                        foreach (var option in cart)
+        //                        {
+        //                            itemTotal += option.Price * item.Quantity;
+        //                        }
+        //                        OrderDetail orderDetail = new OrderDetail();
+        //                        orderDetail.Order = order;
+        //                        orderDetail.ProductId = item.ProductId;
+
+        //                        orderDetail.Price = item.Price;
+        //                        orderDetail.Total = itemTotal;
+        //                        orderDetail.Quantity = item.Quantity;
+        //                        totalOrder += itemTotal;
+        //                        Context.OrderDetails.Add(orderDetail);
+        //                        Context.SaveChanges();
+        //                    }
+        //                    //Cập nhật tổng số tiền
+        //                    order.Total = totalOrder;
+        //                    Update(order);
+        //                    //send mail cho khachs hang
+        //                    var strSanPham = "";
+        //                    var thanhtien = decimal.Zero;
+        //                    var TongTien = decimal.Zero;
+        //                    foreach (var sp in cart)
+        //                    {
+        //                        strSanPham += "<tr>";
+        //                        strSanPham += "<td>" + sp.ProductName + "</td>";
+        //                        strSanPham += "<td>" + sp.Quantity + "</td>";
+        //                        strSanPham += "<td>" + BaseProject.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
+        //                        strSanPham += "</tr>";
+        //                        thanhtien += sp.Price * sp.Quantity;
+        //                    }
+        //                    TongTien = thanhtien;
+        //                    string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send2.html"));
+        //                    contentCustomer = contentCustomer.Replace("{{MaDon}}", order.Code);
+        //                    contentCustomer = contentCustomer.Replace("{{SanPham}}", strSanPham);
+        //                    contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+        //                    contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", order.CustomerName);
+        //                    contentCustomer = contentCustomer.Replace("{{Phone}}", order.PhoneNumber);
+        //                    contentCustomer = contentCustomer.Replace("{{Email}}", req.Email);
+        //                    contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}", order.Address);
+        //                    contentCustomer = contentCustomer.Replace("{{ThanhTien}}", BaseProject.Common.Common.FormatNumber(thanhtien, 0));
+        //                    contentCustomer = contentCustomer.Replace("{{TongTien}}", BaseProject.Common.Common.FormatNumber(TongTien, 0));
+        //                    BaseProject.Common.Common.SendMail("ShopOnline", "Đơn hàng #" + order.Code, contentCustomer.ToString(), req.Email);
+
+        //                    string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send1.html"));
+        //                    contentAdmin = contentAdmin.Replace("{{MaDon}}", order.Code);
+        //                    contentAdmin = contentAdmin.Replace("{{SanPham}}", strSanPham);
+        //                    contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+        //                    contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", order.CustomerName);
+        //                    contentAdmin = contentAdmin.Replace("{{Phone}}", order.PhoneNumber);
+        //                    contentAdmin = contentAdmin.Replace("{{Email}}", req.Email);
+        //                    contentAdmin = contentAdmin.Replace("{{DiaChiNhanHang}}", order.Address);
+        //                    contentAdmin = contentAdmin.Replace("{{ThanhTien}}", BaseProject.Common.Common.FormatNumber(thanhtien, 0));
+        //                    contentAdmin = contentAdmin.Replace("{{TongTien}}", BaseProject.Common.Common.FormatNumber(TongTien, 0));
+        //                    BaseProject.Common.Common.SendMail("ShopOnline", "Đơn hàng mới #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+        //                    _cartManager.ClearCart();
+        //                    break;
+        //            }    
+        //            return RedirectToAction("CompleteOrder", "Order");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        errors.Add(ex.Message);
+        //    }
+        //    TempData["Errors"] = errors;
+        //    return RedirectToAction("CheckOut", "Order");
+        //}
+
+        //CheckOut có momo và sendMail
         public ActionResult CheckOut(FormCollection formCollection)
         {
             List<string> errors = new List<string>();
@@ -157,8 +302,8 @@ namespace BaseProject.Controllers
                 var CustomerName = formCollection["CustomerName"];
                 var PhoneNumber = formCollection["PhoneNumber"];
                 var Address = formCollection["Address"];
+                var Email = formCollection["Email"];
                 var Payment = formCollection["Payment"];
-
 
                 if (string.IsNullOrEmpty(CustomerName))
                 {
@@ -193,25 +338,24 @@ namespace BaseProject.Controllers
                     order.Code = code;
                     order.CustomerName = CustomerName;
                     order.PhoneNumber = PhoneNumber;
+                    order.Email = Email;
                     order.Address = Address;
                     order.Payment = Payment;
 
-
-                    //Add(order);
+                    // Add(order);
                     Session["orderCode"] = code;
+
                     // Lấy tổng tiền từ giỏ hàng
                     var cart = _cartManager.GetCartItems();
                     decimal totalOrder = 0;
                     foreach (var item in cart)
                     {
                         var itemTotal = item.Price * item.Quantity; // giá sản phẩm
-
-
                         totalOrder += itemTotal;
                     }
                     order.Total = totalOrder;
                     Session["order"] = order;
-                    
+
                     switch (Payment)
                     {
                         case "momo":
@@ -236,12 +380,54 @@ namespace BaseProject.Controllers
                                 Context.OrderDetails.Add(orderDetail);
                                 Context.SaveChanges();
                             }
-                            //Cập nhật tổng số tiền
+                            // Cập nhật tổng số tiền
                             order.Total = totalOrder;
                             Update(order);
+
+                            // Send mail cho khách hàng
+                            var strSanPham = "";
+                            var thanhtien = decimal.Zero;
+                            var TongTien = decimal.Zero;
+                            foreach (var sp in cart)
+                            {
+                                strSanPham += "<tr>";
+                                strSanPham += "<td>" + sp.ProductName + "</td>";
+                                strSanPham += "<td>" + sp.Quantity + "</td>";
+                                strSanPham += "<td>" + BaseProject.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
+                                strSanPham += "</tr>";
+                                thanhtien += sp.Price * sp.Quantity;
+                            }
+                            TongTien = thanhtien;
+
+                            // Load email template for customer
+                            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send2.html"));
+                            contentCustomer = contentCustomer.Replace("{{MaDon}}", order.Code);
+                            contentCustomer = contentCustomer.Replace("{{SanPham}}", strSanPham);
+                            contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+                            contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", order.CustomerName);
+                            contentCustomer = contentCustomer.Replace("{{Phone}}", order.PhoneNumber);
+                            contentCustomer = contentCustomer.Replace("{{Email}}", order.Email);
+                            contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}", order.Address);
+                            contentCustomer = contentCustomer.Replace("{{ThanhTien}}", BaseProject.Common.Common.FormatNumber(thanhtien, 0));
+                            contentCustomer = contentCustomer.Replace("{{TongTien}}", BaseProject.Common.Common.FormatNumber(TongTien, 0));
+                            BaseProject.Common.Common.SendMail("ShopOnline", "Đơn hàng #" + order.Code, contentCustomer.ToString(), order.Email);
+
+                            // Load email template for admin
+                            //string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send1.html"));
+                            //contentAdmin = contentAdmin.Replace("{{MaDon}}", order.Code);
+                            //contentAdmin = contentAdmin.Replace("{{SanPham}}", strSanPham);
+                            //contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+                            //contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", order.CustomerName);
+                            //contentAdmin = contentAdmin.Replace("{{Phone}}", order.PhoneNumber);
+                            //contentAdmin = contentAdmin.Replace("{{Email}}", order.Email);
+                            //contentAdmin = contentAdmin.Replace("{{DiaChiNhanHang}}", order.Address);
+                            //contentAdmin = contentAdmin.Replace("{{ThanhTien}}", BaseProject.Common.Common.FormatNumber(thanhtien, 0));
+                            //contentAdmin = contentAdmin.Replace("{{TongTien}}", BaseProject.Common.Common.FormatNumber(TongTien, 0));
+                            //BaseProject.Common.Common.SendMail("ShopOnline", "Đơn hàng mới #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+
                             _cartManager.ClearCart();
                             break;
-                    }    
+                    }
                     return RedirectToAction("CompleteOrder", "Order");
                 }
             }
@@ -252,7 +438,9 @@ namespace BaseProject.Controllers
             TempData["Errors"] = errors;
             return RedirectToAction("CheckOut", "Order");
         }
-       
+
+
+
         //[Route("Order/SearchOrder")]
         //public ActionResult SearchOrder()
         //{

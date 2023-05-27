@@ -17,12 +17,12 @@
             <a href="/admin/category" class="nav-link">Danh mục</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Thêm mới</a>
+            <a href="/admin/category/create" class="nav-link">Thêm mới</a>
         </li>
     </ul>
 }
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<!--<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -35,14 +35,14 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>--><!-- /.container-fluid -->
+<!--</section>-->
 
 <!-- Main content -->
 <section class="content">
 
     <!-- Default box -->
-    <div class="card">
+    <div class="card card-info">
         <div class="card-header">
             <h3 class="card-title">Thông tin mới thêm danh mục</h3>
 
@@ -67,21 +67,23 @@
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
                     @*<div class="form-group">
-                        <label for="exampleInputPassword1">Thời gian tạo</label>
-                        @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Thời gian cập nhật</label>
-                        @Html.EditorFor(model => model.UpdatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UpdatedAt, "", new { @class = "text-danger" })
-                    </div>*@
+            <label for="exampleInputPassword1">Thời gian tạo</label>
+            @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Thời gian cập nhật</label>
+            @Html.EditorFor(model => model.UpdatedAt, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UpdatedAt, "", new { @class = "text-danger" })
+        </div>*@
+                    
+                <div class="form-group">
+                    <a href="/admin/category" class="btn btn-danger"><i class="fa fa-arrow-left"></i></a>
 
-                    <div class="form-group">
-                        <a href="/admin/category" class="btn btn-danger">Quay lại</a>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-thumbs-up"></i></button>
+                    
 
-                    </div>
+                </div>
                 </div>
                     
                 }

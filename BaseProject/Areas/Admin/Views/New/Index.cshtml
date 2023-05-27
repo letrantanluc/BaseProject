@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BaseProject.Models.EF.New>
+﻿@model PagedList.PagedList<BaseProject.Models.EF.New>
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Danh sách tin tức";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -19,7 +21,7 @@
     </ul>
 }
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<!--<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -32,22 +34,36 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>--><!-- /.container-fluid -->
+<!--</section>-->
 
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="card">
+    <div class="card card-info">
         <div class="card-header">
             <h3 class="card-title">@ViewBag.Title</h3>
 
             <div class="card-tools">
-                <a href="/admin/new/create" class="btn btn-primary">Thêm mới</a>
-                <a href="#" class="btn btn-danger" id="BtnDeleteAll">Xóa</a>
+                <a href="/admin/new/create" class="btn btn-file"><i class="fa fa-plus-circle"></i></a>
+                <a href="#" class="btn btn-danger" id="BtnDeleteAll"><i class="fa fa-trash"></i></a>
             </div>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    @using (Html.BeginForm("Index", "New", FormMethod.Get, new { }))
+                    {
+                        <div class="input-group input-group-sm">
+                            @Html.TextBox("Searchtext", null, new { @class = "form-control" })
+                            @*<input type="text" name="searchtext" class="form-control">*@
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
             <table class="table table-hover text-center">
                 <thead>
                     <tr>
@@ -62,7 +78,7 @@
                 <tbody>
                     @if (Model != null && Model.Any())
                     {
-                        var i = 1;
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
                             var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
@@ -75,8 +91,8 @@
                                     <a href='#' data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
                                 </td>
                                 <td>
-                                    <a href="/admin/new/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>
-                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                    <a href="/admin/new/edit/@item.Id" class="btn btn-sm btn-primary"><i class="fa fa-wrench"></i></a>
+                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             i++;
@@ -92,7 +108,12 @@
                     }
                 </tbody>
             </table>
-
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">

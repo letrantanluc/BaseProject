@@ -22,6 +22,9 @@ namespace BaseProject.Models.EF
         public string Images { get; set; }
         public bool IsActive { get; set; }
 
+        public string Alias { get; set; }
+
+
         public int CategoryId { get; set; } = 0;
 
         public Category Categories { get; set; }

@@ -21,58 +21,57 @@
 <!-- Main content -->
 <section class="content">
 
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Danh sách Quyền</h3>
-
-            <div class="card-tools">
-                <a href="/admin/role/create" class="btn btn-success">Thêm mới</a>
+        <!-- Default box -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Danh sách Quyền</h3>
+                <div class="card-tools">
+                    <a href="/admin/role/create" class="btn btn-file"><i class="fa fa-plus-circle"></i></a>
+                </div>
             </div>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Id</th>
-                        <th>Tên</th>
-                        <th>Hành động</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Any())
-                    {
-                        var i = 1;
-                        foreach (var item in Model)
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Tên</th>
+                            <th>Hành động</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
                         {
-                            <tr>
-                                <td>@i</td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>@item.Name</td>
-                                <td>
-                                    <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.Id')">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            i++;
+                            var i = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+
                         }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
 
-                    }
-                </tbody>
-            </table>
+            </div>
+            <!-- /.card-footer-->
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-
-        </div>
-        <!-- /.card-footer-->
-    </div>
-    <!-- /.card -->
+        <!-- /.card -->
 
 </section>
 <!-- /.content -->

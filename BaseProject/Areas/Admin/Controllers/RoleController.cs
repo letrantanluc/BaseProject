@@ -10,7 +10,7 @@ using BaseProject.Models.EF;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "tanluc")]
     public class RoleController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -61,9 +61,71 @@ namespace BaseProject.Areas.Admin.Controllers
             }
         }
 
+        //setrole
+        public ActionResult SetRole()
+        {
+            var roles = db.Roles.ToList();
+            var users = db.Users.ToList();
+            var roleUserList = new List<AspNetUserRoles>();
 
-        
-        
+            foreach (var role in roles)
+            {
+                // Get all the users assigned to the role
+                var userIds = db.Set<IdentityUserRole>()
+                    .Where(ur => ur.RoleId == role.Id)
+                    .Select(ur => ur.UserId)
+                    .ToList();
+
+                // Get all the users assigned to the role
+                var roleUsers = db.Set<ApplicationUser>()
+                    .Where(u => userIds.Contains(u.Id))
+                    .ToList();
+
+                // Add the role-user mappings to the list
+                roleUserList.AddRange(roleUsers.Select(u => new AspNetUserRoles { RoleId = role.Id, UserId = u.Id }));
+            }
+            ViewBag.Roles = roles;
+            ViewBag.Users = users;
+            return View(roleUserList);
+        }
+        [HttpPost]
+        public ActionResult SetRole(FormCollection formCollection)
+        {
+            List<string> errors = new List<string>();
+            try
+            {
+                var RoleId = formCollection["RoleId"];
+                var UserId = formCollection["UserId"];
+                var getRole = db.Roles.FirstOrDefault(x => x.Id == RoleId);
+                var getUser = db.Users.FirstOrDefault(x => x.Id == UserId);
+                if (getRole == null)
+                {
+                    errors.Add("Không tìm thấy Role này.");
+                }
+                if (getUser == null)
+                {
+                    errors.Add("Không tìm thấy User này.");
+                }
+                if (errors.Count == 0)
+                {
+                    IdentityUserRole userRole = new IdentityUserRole();
+                    userRole.UserId = getUser.Id;
+                    userRole.RoleId = getRole.Id;
+                    getUser.Roles.Add(userRole);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                errors.Add(ex.Message);
+            }
+            TempData["Errors"] = errors;
+            return RedirectToAction("SetRole", "Role");
+        }
+
+
+
+
 
 
     }

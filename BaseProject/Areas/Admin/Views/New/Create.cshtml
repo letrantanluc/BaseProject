@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+
 
 @section naviheader{
     <!-- Left navbar links -->
@@ -24,7 +24,7 @@
     </ul>
 }
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<!--<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -37,14 +37,14 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>--><!-- /.container-fluid -->
+<!--</section>-->
 
 <!-- Main content -->
 <section class="content">
 
     <!-- Default box -->
-    <div class="card">
+    <div class="card card-info">
         <div class="card-header">
             <h3 class="card-title">Thông tin mới thêm Tin tức</h3>
 
@@ -97,10 +97,11 @@
 
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                        <a href="/admin/new" class="btn btn-danger">Quay lại</a>
+                        
 
+                        <a href="/admin/new" class="btn btn-danger"><i class="fa fa-arrow-left"></i></a>
 
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-thumbs-up"></i></button>
                     </div>
                 </div>
 

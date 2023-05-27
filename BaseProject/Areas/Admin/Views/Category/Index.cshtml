@@ -19,7 +19,7 @@
     </ul>
 }
 <!-- Content Header (Page header) -->
-<section class="content-header">
+<!--<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -32,19 +32,19 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
+    </div>--><!-- /.container-fluid -->
+<!--</section>-->
 
 <!-- Main content -->
 <section class="content">
 
     <!-- Default box -->
-    <div class="card">
+    <div class="card card-info">
         <div class="card-header">
             <h3 class="card-title">Danh sách danh mục</h3>
 
             <div class="card-tools">
-                <a href="/admin/category/create" class="btn btn-primary">Thêm mới</a>
+                <a href="/admin/category/create" class="btn btn-block"><i class="fa fa-plus-circle"></i></a>
             </div>
         </div>
         <div class="card-body">
@@ -82,8 +82,9 @@
                                     @Html.DisplayFor(modelItem => item.UpdatedAt)
                                 </td>
                                 <td>
-                                    <a href="/admin/category/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>
-                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                    <a href="/admin/category/edit/@item.Id" class="btn btn-sm btn-primary"><i class="fa fa-wrench"></i></a>
+                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-trash"></i></a>
+
                                 </td>
                             </tr>
                             i++;
