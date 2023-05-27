@@ -37,8 +37,7 @@ namespace BaseProject.Models.EF
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public ICollection<OrderDetail> OrderDetails { get; set; }
 
-        //public string ApplicationUserId { get; set; }
-        //public ApplicationUser ApplicationUser { get; set; }
+       
 
     }
 }
