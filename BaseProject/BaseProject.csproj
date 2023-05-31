@@ -292,6 +292,14 @@
     <Compile Include="Migrations\202305271455587_addAliasinNews.designer.cs">
       <DependentUpon>202305271455587_addAliasinNews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305271855444_editModels.cs" />
+    <Compile Include="Migrations\202305271855444_editModels.designer.cs">
+      <DependentUpon>202305271855444_editModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305271924389_addAliasCategory.cs" />
+    <Compile Include="Migrations\202305271924389_addAliasCategory.designer.cs">
+      <DependentUpon>202305271924389_addAliasCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Common\Filter.cs" />
@@ -305,7 +313,6 @@
     <Compile Include="Models\EF\OrderDetail.cs" />
     <Compile Include="Models\EF\Payment.cs" />
     <Compile Include="Models\EF\Product.cs" />
-    <Compile Include="Models\EF\ResultMomo.cs" />
     <Compile Include="Models\EF\Role.cs" />
     <Compile Include="Models\EF\User.cs" />
     <Compile Include="Models\EF\Wishlist.cs" />
@@ -3401,6 +3408,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305271455587_addAliasinNews.resx">
       <DependentUpon>202305271455587_addAliasinNews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305271855444_editModels.resx">
+      <DependentUpon>202305271855444_editModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305271924389_addAliasCategory.resx">
+      <DependentUpon>202305271924389_addAliasCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

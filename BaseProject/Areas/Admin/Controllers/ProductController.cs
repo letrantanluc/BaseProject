@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "tanluc")]
+    [Authorize(Roles = "adminTL")]
     public class ProductController : Controller
     {
         // GET: Admin/Product

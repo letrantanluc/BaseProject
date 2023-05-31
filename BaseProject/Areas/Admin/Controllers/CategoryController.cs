@@ -1,5 +1,6 @@
 ﻿using BaseProject.Models;
 using BaseProject.Models.EF;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,16 +11,36 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "tanluc")]
+    [Authorize(Roles = "adminTL")]
     public class CategoryController : Controller
     {
        
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Category
-        public ActionResult Index()
-        {
+        //public ActionResult Index()
+        //{
 
-            return View(db.Categories.ToList());
+        //    return View(db.Categories.ToList());
+        //}
+
+        public ActionResult Index(string Searchtext, int? page)
+        {
+            var pageSize = 10;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<Category> items = db.Categories.OrderByDescending(x => x.Id);
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+
+                items = items.Where(x => x.Alias.Contains(Searchtext) || x.CategoryName.Contains(Searchtext));
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = page;
+            return View(items);
         }
 
         public ActionResult Create()
@@ -36,6 +57,7 @@ namespace BaseProject.Areas.Admin.Controllers
             {
                 category.CreatedAt= DateTime.Now;
                 category.UpdatedAt = DateTime.Now;
+                category.Alias = BaseProject.Models.Common.Filter.FilterChar(category.CategoryName);
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,6 +87,7 @@ namespace BaseProject.Areas.Admin.Controllers
             {
                 //db.Categories.Attach(category);
                 category.UpdatedAt = DateTime.Now;
+                category.Alias = BaseProject.Models.Common.Filter.FilterChar(category.CategoryName);
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,6 +105,27 @@ namespace BaseProject.Areas.Admin.Controllers
                 db.Categories.Remove(item);
                 db.SaveChanges();
                 return Json(new {success=true });
+            }
+            return Json(new { success = false });
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (!string.IsNullOrEmpty(ids))
+            {
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.Categories.Find(Convert.ToInt32(item));
+                        db.Categories.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
             }
             return Json(new { success = false });
         }

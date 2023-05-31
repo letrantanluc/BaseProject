@@ -21,6 +21,7 @@ namespace BaseProject.Controllers
             var products = db.Products.Include(p => p.Category);
             return View(products.ToList());
         }
+       
         public ActionResult ListProductCategory(int id)
         {
             //var products = db.Products.Include(p => p.Category);

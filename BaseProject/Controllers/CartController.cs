@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Controllers
 {
+    
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,6 +30,7 @@ namespace BaseProject.Controllers
             }
             return View(cart);
         }
+        [Authorize]
 
         [HttpPost]
         public ActionResult AddToCart(int productId, int quantity)
