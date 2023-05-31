@@ -10,7 +10,7 @@ using BaseProject.Models.EF;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "tanluc")]
+    [Authorize(Roles = "adminTL")]
     public class RoleController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

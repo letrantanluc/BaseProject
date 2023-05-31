@@ -26,6 +26,8 @@ namespace BaseProject.Models.EF
         [StringLength(500, ErrorMessage = "Không vượt quá 500 ký tự")]
         public string Description { get; set; }
 
+        public string Alias { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
        

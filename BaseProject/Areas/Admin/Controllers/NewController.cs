@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "tanluc")]
+    [Authorize(Roles = "adminTL")]
     public class NewController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();

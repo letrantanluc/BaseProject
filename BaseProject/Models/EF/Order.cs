@@ -27,9 +27,12 @@ namespace BaseProject.Models.EF
 
         [Required(ErrorMessage = "Địa chỉ không được để trống")]
         public string Address { get; set; }
+
+        [Required(ErrorMessage = "Bạn cần chọn phương thức thanh toán")]
         public string Payment { get; set; }
         public decimal Total { get; set; }
 
+        //[Required(ErrorMessage = "Email không được để trống")]
         public string Email { get; set; }
 
         public int Paid { get; set; }
