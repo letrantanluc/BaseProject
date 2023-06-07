@@ -152,7 +152,7 @@ namespace BaseProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email , FullName = model.FullName , Address = model.Address , PhoneNumber  = model.PhoneNumber , Introduction = model.Introduction , Gender = model.Gender , BirthOfDate  = model.BirthOfDate , IdCard  = model.IdCard };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email , FullName = model.FullName  };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

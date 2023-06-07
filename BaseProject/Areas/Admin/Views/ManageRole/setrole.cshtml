@@ -29,7 +29,7 @@
 <div class="modal fade" id="create_modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            @using (Html.BeginForm("SetRole", "Role", FormMethod.Post))
+            @using (Html.BeginForm("SetRole", "ManageRole", FormMethod.Post))
             {
                 <div class="modal-header">
                     <h4 class="modal-title">Tạo role mới</h4>
@@ -113,7 +113,7 @@
     function del(UserId, RoleId) {
         if (confirm("Bạn chắc chắn muốn xóa?")) {
             $.ajax({
-                url: "@Url.Action("DeleteSetRole", "Role")",
+                url: "@Url.Action("DeleteSetRole", "ManageRole")",
                 type: "POST",
                 data: { UserId: UserId, RoleId: RoleId },
                 success: function (response) {

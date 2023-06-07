@@ -14,7 +14,7 @@
             <a href="/admin" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/category" class="nav-link">@ViewBag.Title</a>
+            <a href="/admin/Managecategory" class="nav-link">@ViewBag.Title</a>
         </li>
     </ul>
 }
@@ -28,7 +28,7 @@
 
         </div>
         <div class="card-body">
-            @using (Html.BeginForm("Create", "Role", FormMethod.Post))
+            @using (Html.BeginForm("Create", "ManageRole", FormMethod.Post))
             {
                 @Html.ValidationSummary(false)
                 @Html.AntiForgeryToken()

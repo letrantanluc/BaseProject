@@ -10,10 +10,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin" class="nav-link">Trang chủ</a>
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin" class="nav-link">@ViewBag.Title</a>
+            <a href="/admin/ManageAccount/create" class="nav-link">@ViewBag.Title</a>
         </li>
     </ul>
 }
@@ -27,7 +27,7 @@
 
         </div>
         <div class="card-body">
-            @using (Html.BeginForm("Create", "Account", FormMethod.Post))
+            @using (Html.BeginForm("Create", "ManageAccount", FormMethod.Post))
             {
                 @Html.ValidationSummary(false)
                 @Html.AntiForgeryToken()

@@ -38,6 +38,7 @@ namespace BaseProject.Models
         {
         }
 
+        public DbSet<Analytic> Analytics { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Message> Messages { get; set; }

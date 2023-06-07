@@ -7,11 +7,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BaseProject.Models.EF;
+using BaseProject.Controllers;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "adminTL")]
-    public class RoleController : Controller
+    //[Authorize(Roles = "adminTL")]
+    public class ManageRoleController : BaseController<Role>
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Role
@@ -120,7 +121,44 @@ namespace BaseProject.Areas.Admin.Controllers
                 errors.Add(ex.Message);
             }
             TempData["Errors"] = errors;
-            return RedirectToAction("SetRole", "Role");
+            return RedirectToAction("SetRole", "ManageRole");
+        }
+        [HttpPost]
+        public ActionResult DeleteSetRole(Guid? UserId, Guid? RoleId)
+        {
+            try
+            {
+                if (RoleId == null || UserId == null)
+                {
+                    return Json(new { success = false, message = "Vui lòng nhập đầy đủ thông tin." });
+                }
+                var getRole = db.Roles.FirstOrDefault(x => x.Id.Equals(RoleId.ToString()));
+                var getUser = db.Users.FirstOrDefault(x => x.Id.Equals(UserId.ToString()));
+
+                if (getRole == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy Role này." });
+                }
+                if (getUser == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy User này." });
+                }
+                var userRole = db.Set<IdentityUserRole>().FirstOrDefault(ur => ur.UserId == getUser.Id && ur.RoleId == getRole.Id);
+
+                if (userRole != null)
+                {
+                    // Remove the record from the AspNetUserRoles table
+                    db.Set<IdentityUserRole>().Remove(userRole);
+
+                    // Save the changes to the database
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            return Json(new { success = true, message = "Xóa set role thành công" });
         }
 
 

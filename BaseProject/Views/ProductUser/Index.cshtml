@@ -5,84 +5,55 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1 style="text-align:center">Danh sách sản phẩm</h1>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.image)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>*@
-        @*<th>
-            @Html.DisplayNameFor(model => model.Created_At)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Updated_At)
-        </th>*@
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            <img style="width:40%" src="@Html.DisplayFor(modelItem => item.image)"/>
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>*@
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Created_At)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Updated_At)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
 
-</table>
+
+
+<div class="row">
+    @*<div class="col-md-12">
+        <div class="panel-heading">
+            @Html.ActionLink("Create", "Create", "ProductUser", new { @class = "btn btn-warning" })
+        </div>
+    </div>*@
+
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="panel panel-default" style="text-align: center">
+                <div class="panel panel-heading" style="font-weight: bold">
+                    @item.ProductName
+
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <img style="height:150px" src="@item.image" />
+                    </p>
+                    <p>
+                        <strong>Giá: </strong>@item.Price.ToString("N0") VNĐ
+                    </p>
+                    <p>
+                        <strong>Số lượng: </strong>@item.Quantity
+                    </p>
+                    <p>
+                        <strong>Địa điểm: </strong>@item.Location
+                    </p>
+
+
+
+                </div>
+                <div class="text-center panel-footer clearfix">
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                </div>
+
+
+            </div>
+
+        </div>
+    }
+</div>

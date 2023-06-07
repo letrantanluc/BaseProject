@@ -1,4 +1,5 @@
-﻿using BaseProject.Models;
+﻿using BaseProject.Controllers;
+using BaseProject.Models;
 using BaseProject.Models.EF;
 using PagedList;
 using System;
@@ -11,8 +12,8 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "adminTL")]
-    public class NewController : Controller
+    //[Authorize(Roles = "adminTL")]
+    public class ManageNewController : BaseController<New>
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/New

@@ -14,7 +14,7 @@
             <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/account" class="nav-link">@ViewBag.Title</a>
+            <a href="/admin/Manageaccount" class="nav-link">@ViewBag.Title</a>
         </li>
     </ul>
 }
@@ -27,7 +27,7 @@
             <h3 class="card-title">Danh sách tài khoản</h3>
 
             <div class="card-tools">
-                <a href="/admin/account/create" class="btn btn-file"><i class="fa fa-plus-circle"></i></a>
+                <a href="/admin/Manageaccount/create" class="btn btn-file"><i class="fa fa-plus-circle"></i></a>
             </div>
         </div>
         <div class="card-body">
@@ -81,7 +81,7 @@
 
                     if (confirm('Bạn có chắc chắn muốn xóa người dùng ' + userName + ' không?')) {
                         $.ajax({
-                            url: '/admin/account/delete',
+                            url: '/admin/Manageaccount/delete',
                             type: 'POST',
                             data: { userName: userName },
                             success: function (result) {

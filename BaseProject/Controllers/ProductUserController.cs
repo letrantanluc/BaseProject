@@ -21,7 +21,7 @@ namespace BaseProject.Controllers
             var products = db.Products.Include(p => p.Category);
             return View(products.ToList());
         }
-       
+     
         public ActionResult ListProductCategory(int id)
         {
             //var products = db.Products.Include(p => p.Category);
@@ -50,6 +50,13 @@ namespace BaseProject.Controllers
             {
                 return HttpNotFound();
             }
+
+            // Tăng giá trị ViewCount của sản phẩm
+            db.Products.Attach(product);
+            product.ViewCount = product.ViewCount + 1;
+            db.Entry(product).Property(x => x.ViewCount).IsModified = true;
+            db.SaveChanges();
+
             ViewBag.Created_At = product.Created_At.ToString("dd/MM/yyyy");
             ViewBag.Updated_At = product.Updated_At.ToString("dd/MM/yyyy");
             return View(product);

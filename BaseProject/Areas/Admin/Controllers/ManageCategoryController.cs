@@ -1,4 +1,5 @@
-﻿using BaseProject.Models;
+﻿using BaseProject.Controllers;
+using BaseProject.Models;
 using BaseProject.Models.EF;
 using PagedList;
 using System;
@@ -11,8 +12,8 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "adminTL")]
-    public class CategoryController : Controller
+    //[Authorize(Roles = "adminTL")]
+    public class ManageCategoryController : BaseController<Category>
     {
        
         ApplicationDbContext db = new ApplicationDbContext();
@@ -51,7 +52,7 @@ namespace BaseProject.Areas.Admin.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CategoryName,Description,CreatedAt,UpdatedAt")] Category category)
+        public ActionResult Create([Bind(Include = "Id,CategoryName,Description,CreatedAt,UpdatedAt,Images")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +82,7 @@ namespace BaseProject.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CategoryName,Description,CreatedAt,UpdatedAt")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,CategoryName,Description,CreatedAt,UpdatedAt,Images")] Category category)
         {
             if (ModelState.IsValid)
             {

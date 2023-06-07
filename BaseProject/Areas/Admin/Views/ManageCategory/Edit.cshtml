@@ -14,7 +14,7 @@
             <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/category" class="nav-link">Danh mục</a>
+            <a href="/admin/Managecategory" class="nav-link">Danh mục</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Cạp nhật</a>
@@ -50,33 +50,34 @@
         </div>
         <div class="card-body">
             <div class="bs-stepper-content">
-                @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { }))
+                @using (Html.BeginForm("Edit", "ManageCategory", FormMethod.Post, new { }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
                     <!-- your steps content here -->
-                    <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Tên danh mục</label>
-                            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên danh mục" } })
-                            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên danh mục</label>
+                        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên danh mục" } })
+                        @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">Ảnh</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                @Html.TextBoxFor(x => x.Images, new { @id = "txtImage", @class = "form-control" })
+                            </div>
+                            <div class="input-group-append">
+                                <input type="button" value="Tải ảnh" onclick="BrowseServer('txtImage');" />
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Mô tả</label>
-                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
-                        @*<div class="form-group">
-                    <label for="exampleInputPassword1">Thời gian tạo</label>
-                    @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Thời gian cập nhật</label>
-                    @Html.EditorFor(model => model.UpdatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UpdatedAt, "", new { @class = "text-danger" })
-                </div>*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Mô tả</label>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
 
                     <div class="form-group">
                         <a href="/admin/category" class="btn btn-danger"><i class="fa fa-arrow-left"></i></a>
@@ -85,7 +86,7 @@
 
 
                     </div>
-                    </div>
+                </div>
 
                 }
 

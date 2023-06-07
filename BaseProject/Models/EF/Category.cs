@@ -28,6 +28,8 @@ namespace BaseProject.Models.EF
 
         public string Alias { get; set; }
 
+        public string Images { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
        

@@ -10,32 +10,30 @@
 <h1 style="text-align:center">Trang chủ</h1>
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"  >
+        <div class="panel panel-default" style="text-align: center">
+            <div class="panel panel-heading"  style="font-weight: bold">
+                @item.CategoryName
+            </div>
+            <div class="panel-body">
+                <p >
+                    <img style="height:150px" src="@item.Images" />
+                </p>
+                <p >
+                    @item.Description
+                </p>
+            </div>
+            <div class="text-center panel-footer clearfix">
+                <a href="@Url.Action("ListProductCategory", "ProductUser", new { id = item.Id })" class="btn btn-primary">Product</a>
+            </div>
+        </div>
+    </div>
+}
 
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <div class="card-tools">
-                    <a href="@Url.Action("ListProductCategory", "ProductUser", new { id = item.Id })" class="btn btn-primary">Product</a>
-                </div>
-            </td>
-        </tr>
-    }
 
-</table>
+
+
+

@@ -34,6 +34,8 @@ namespace BaseProject.Models.EF
         public DateTime Created_At { get; set; } = DateTime.Now;
         public DateTime Updated_At { get; set; } = DateTime.Now;
 
+        public int ViewCount { get; set; }
+
 
         [Display(Name = "Category")]
         public int CategoryId { get; set; }

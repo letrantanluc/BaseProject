@@ -35,7 +35,6 @@ namespace BaseProject.Service.Payment.Momo
                 stream.Close();
 
                 HttpWebResponse response = (HttpWebResponse)httpWReq.GetResponse();
-
                 string jsonResponse = "";
 
                 using (var reader = new StreamReader(response.GetResponseStream()))

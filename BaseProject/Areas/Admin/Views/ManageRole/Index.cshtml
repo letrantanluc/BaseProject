@@ -14,7 +14,7 @@
             <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/role" class="nav-link">@ViewBag.Title</a>
+            <a href="/admin/Managerole" class="nav-link">@ViewBag.Title</a>
         </li>
     </ul>
 }
@@ -26,7 +26,7 @@
             <div class="card-header">
                 <h3 class="card-title">Danh sách Quyền</h3>
                 <div class="card-tools">
-                    <a href="/admin/role/create" class="btn btn-file"><i class="fa fa-plus-circle"></i></a>
+                    <a href="/admin/Managerole/create" class="btn btn-file"><i class="fa fa-plus-circle"></i></a>
                 </div>
             </div>
             <div class="card-body">
@@ -79,7 +79,7 @@
     function del(id) {
         if (confirm("Bạn chắc chắn muốn xóa?")) {
             $.ajax({
-                url: "@Url.Action("Delete", "Role")",
+                url: "@Url.Action("Delete", "ManageRole")",
                 type: "POST",
                 data: { id: id },
                 success: function (response) {

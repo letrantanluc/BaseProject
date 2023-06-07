@@ -48,7 +48,10 @@
   <ItemGroup>
     <Reference Include="CKFinder, Version=2.4.0.2631, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ckfinder,ckeditor\ckfinder\bin\Release\CKFinder.dll</HintPath>
+      <HintPath>E:\DoAn\ckfinder,ckeditor\ckfinder\bin\Release\CKFinder.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=7.0.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.7.0.5\lib\net462\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
@@ -58,6 +61,9 @@
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -226,9 +232,6 @@
     <Reference Include="Microsoft.Owin.Security.OAuth">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -237,12 +240,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageAccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NewController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
-    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageNewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageRoleController.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -300,8 +303,18 @@
     <Compile Include="Migrations\202305271924389_addAliasCategory.designer.cs">
       <DependentUpon>202305271924389_addAliasCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306011753514_addImagesinCategory.cs" />
+    <Compile Include="Migrations\202306011753514_addImagesinCategory.designer.cs">
+      <DependentUpon>202306011753514_addImagesinCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306051507247_createtableStatistic.cs" />
+    <Compile Include="Migrations\202306051507247_createtableStatistic.designer.cs">
+      <DependentUpon>202306051507247_createtableStatistic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnalyticsViewModels.cs" />
+    <Compile Include="Models\Common\AccessAnalytics.cs" />
     <Compile Include="Models\Common\Filter.cs" />
     <Compile Include="Models\EF\AspNetUserRoles.cs" />
     <Compile Include="Models\EF\CartItem.cs" />
@@ -314,6 +327,7 @@
     <Compile Include="Models\EF\Payment.cs" />
     <Compile Include="Models\EF\Product.cs" />
     <Compile Include="Models\EF\Role.cs" />
+    <Compile Include="Models\EF\Statistic.cs" />
     <Compile Include="Models\EF\User.cs" />
     <Compile Include="Models\EF\Wishlist.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -3180,12 +3194,12 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_PartialSideBar.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\New\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\New\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageCategory\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageCategory\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageNew\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageNew\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageProduct\Index.cshtml" />
     <Content Include="Content\ckeditor\CHANGES.md" />
     <Content Include="Content\ckeditor\LICENSE.md" />
     <Content Include="Content\ckeditor\plugins\scayt\LICENSE.md" />
@@ -3198,7 +3212,7 @@
     <Content Include="Content\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Content\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
-    <Content Include="Areas\Admin\Views\New\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageNew\Edit.cshtml" />
     <Content Include="Content\clients\dist\css\adminlte.css.map" />
     <Content Include="Content\clients\dist\css\adminlte.min.css.map" />
     <Content Include="Content\clients\dist\css\alt\adminlte.components.css.map" />
@@ -3279,11 +3293,11 @@
     <Content Include="Content\clients\plugins\summernote\summernote.js.map" />
     <Content Include="Content\clients\plugins\summernote\summernote.min.js.map" />
     <Content Include="Content\clients\plugins\toastr\toastr.js.map" />
-    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Role\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageRole\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageRole\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAccount\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAccount\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAccount\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Content\assets\dist\css\adminlte.css.map" />
     <Content Include="Content\assets\dist\css\adminlte.min.css.map" />
@@ -3302,7 +3316,8 @@
     <Content Include="Content\assets\dist\js\.eslintrc.json" />
     <Content Include="Content\assets\dist\js\adminlte.js.map" />
     <Content Include="Content\assets\dist\js\adminlte.min.js.map" />
-    <Content Include="Areas\Admin\Views\Role\setrole.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageRole\setrole.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Refresh.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3325,8 +3340,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -3359,6 +3372,8 @@
     <Content Include="Views\ProductUser\ListProductCategory.cshtml" />
     <Content Include="Views\Cart\_CartPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_LayoutRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3414,6 +3429,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305271924389_addAliasCategory.resx">
       <DependentUpon>202305271924389_addAliasCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306011753514_addImagesinCategory.resx">
+      <DependentUpon>202306011753514_addImagesinCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306051507247_createtableStatistic.resx">
+      <DependentUpon>202306051507247_createtableStatistic.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

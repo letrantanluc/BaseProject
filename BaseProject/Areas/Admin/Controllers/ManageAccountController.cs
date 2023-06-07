@@ -11,17 +11,17 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "adminTL")]
-    public class AccountController : Controller
+    //[Authorize(Roles = "adminTL")]
+    public class ManageAccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
-        public AccountController()
+        public ManageAccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageAccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
