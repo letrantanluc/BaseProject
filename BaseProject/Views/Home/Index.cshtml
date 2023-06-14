@@ -10,30 +10,214 @@
 <h1 style="text-align:center">Trang chủ</h1>
 
 
-@foreach (var item in Model)
-{
-    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"  >
-        <div class="panel panel-default" style="text-align: center">
-            <div class="panel panel-heading"  style="font-weight: bold">
-                @item.CategoryName
-            </div>
-            <div class="panel-body">
-                <p >
-                    <img style="height:150px" src="@item.Images" />
-                </p>
-                <p >
-                    @item.Description
-                </p>
-            </div>
-            <div class="text-center panel-footer clearfix">
-                <a href="@Url.Action("ListProductCategory", "ProductUser", new { id = item.Id })" class="btn btn-primary">Product</a>
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+
+                    <div class="card-tools">
+                        <a href="@Url.Action("Index", "ProductUser", new { id = item.Id })" class="btn btn-primary">Product</a>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>*@
+
+
+
+<!-- Slider -->
+
+<div class="main_slider" style="background-image:url(/Content/LayoutUser/images/slider_1.jpg)">
+    <div class="container fill_height">
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                <div class="main_slider_content">
+                    <h6> Chỉ Có Ở BaseStore</h6>
+                    <h1>Khám Phá Các Sản Phẩm</h1>
+                    <div class="red_button shop_now_button"><a href="/ProductUser">Tại đây</a></div>
+                </div>
             </div>
         </div>
     </div>
-}
+</div>
 
+<!-- New Arrivals -->
 
+<div class="new_arrivals">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>DANH MỤC SẢN PHẨM</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col text-center">
+                <div class="new_arrivals_sorting">
+                    <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
+                        @foreach (var item in Model)
+                        {
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".cate-@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.CategoryName)</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
 
+                    <!-- Product 1 -->
+                    @foreach(var itemProduct in ViewBag.Products)
+                    {                       
+                    <div class="product-item cate-@itemProduct.Category.Id">
+                        <div class="product discount product_filter">
+                            <div class="product_image">
+                                <a href="@Url.Action("Details", "ProductUser", new { id = itemProduct.Id })">
+                                    <img src="@itemProduct.image" alt="">
+                                </a>
+                            </div>
+                            <div class="favorite favorite_left"></div>
+                            @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>*@
+                            <div class="product_info">
+                                <h6 class="product_name"><a href="single.html"> @itemProduct.ProductName</a></h6>
+                                @*<div class="product_price">@itemProduct.Price<span>$590.00</span></div>*@
+                                <div class="product_price">@string.Format("{0:N0}", @itemProduct.Price) VNĐ@*<span>$590.00</span>*@</div>
+                            </div>
+                        </div>
+                        @*<div class="red_button add_to_cart_button add-to-cart" data-product-id="@itemProduct.Id"><a href="#">add to cart</a></div>*@
+                    </div>
+                    }
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Deal of the week -->
 
+<div class="deal_ofthe_week">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="deal_ofthe_week_img">
+                    <img src="/Content/LayoutUser/images/deal_ofthe_week.png" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 text-right deal_ofthe_week_col">
+                <div class="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
+                    <div class="section_title">
+                        <h2>Sản Phẩm Tuần</h2>
+                    </div>
+                    <ul class="timer">
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="day" class="timer_num">03</div>
+                            <div class="timer_unit">Day</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="hour" class="timer_num">15</div>
+                            <div class="timer_unit">Hours</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="minute" class="timer_num">45</div>
+                            <div class="timer_unit">Mins</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="second" class="timer_num">23</div>
+                            <div class="timer_unit">Sec</div>
+                        </li>
+                    </ul>
+                    <div class="red_button deal_ofthe_week_button"><a href="/ProductUser">Tại Đây</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Benefit -->
+
+<div class="benefit">
+    <div class="container">
+        <div class="row benefit_row">
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>free shipping</h6>
+                        <p>Suffered Alteration in Some Form</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>cach on delivery</h6>
+                        <p>The Internet Tend To Repeat</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>45 days return</h6>
+                        <p>Making it Look Like Readable</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>opening all week</h6>
+                        <p>8AM - 09PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart').click(function (e) {
+            e.preventDefault();
+            var productId = $(this).data('product-id');
+            var quantity = 1;
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'POST',
+                data: { productId: productId, quantity: quantity },
+                success: function (data) {
+                    alert("Thêm thành công");
+                    // Thực hiện các thay đổi trên giao diện để hiển thị giỏ hàng mới nhất
+                },
+                error: function () {
+                    alert('An error occurred while adding to cart.');
+                }
+            });
+        });
+    });
+</script>

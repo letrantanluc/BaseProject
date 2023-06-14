@@ -50,7 +50,7 @@ namespace BaseProject.Controllers
             string redirectUrl = System.Configuration.ConfigurationManager.AppSettings["redirectUrl_Momo"];
             string ipnUrl = System.Configuration.ConfigurationManager.AppSettings["ipnUrl_Momo"];
             string requestType = "captureWallet";
-            string orderInfo = "Thanh toan UniCafe #" + order.Code + "";
+            string orderInfo = "Thanh toan BaseStore #" + order.Code + "";
             string amount = string.Join("", order.Total.ToString("N0").Where(char.IsDigit)); // Xóa dấu phẩy
             string orderId = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();

@@ -19,6 +19,13 @@ namespace BaseProject
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] {"BaseProject.Controllers"}
             );
+
+            routes.MapRoute(
+              name: "CategoryProduct",
+              url: "danh-muc-san-pham/{alias}-{id}",
+              defaults: new { controller = "ProductUsers", action = "ProductCategory", id = UrlParameter.Optional },
+                namespaces: new[] { "BaseProject.Controllers" }
+            );
         }
     }
 }

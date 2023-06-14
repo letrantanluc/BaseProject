@@ -32,7 +32,7 @@ namespace BaseProject.Models.EF
         public string Payment { get; set; }
         public decimal Total { get; set; }
 
-        //[Required(ErrorMessage = "Email không được để trống")]
+        [Required(ErrorMessage = "Email không được để trống")]
         public string Email { get; set; }
 
         public int Paid { get; set; }
