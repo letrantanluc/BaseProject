@@ -11,7 +11,7 @@ using BaseProject.Controllers;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "adminTL")]
+    [Authorize(Roles = "Admin")]
     public class ManageRoleController : BaseController<Role>
     {
         private ApplicationDbContext db = new ApplicationDbContext();

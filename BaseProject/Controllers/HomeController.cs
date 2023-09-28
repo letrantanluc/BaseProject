@@ -20,6 +20,21 @@ namespace BaseProject.Controllers
             return View(db.Categories.ToList());
            
         }
+        public ActionResult Partial_Subcrice()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult Subscribe(Subscribe req)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Subscribes.Add(new Subscribe { Email = req.Email, CreatedDate = DateTime.Now });
+                db.SaveChanges();
+                return Json(new { Success = true });
+            }
+            return View("Partial_Subcrice", req);
+        }
 
 
     }

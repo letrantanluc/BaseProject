@@ -8,10 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "adminTL")]
+    [Authorize(Roles = "Admin")]
     public class ManageAccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -150,6 +151,7 @@ namespace BaseProject.Areas.Admin.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+          
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -189,6 +191,15 @@ namespace BaseProject.Areas.Admin.Controllers
             {
                 return Redirect(returnUrl);
             }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            var AuthenticationManager = HttpContext.GetOwinContext().Authentication;
+            AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

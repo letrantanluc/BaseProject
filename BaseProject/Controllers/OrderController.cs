@@ -372,7 +372,7 @@ namespace BaseProject.Controllers
                                 OrderDetail orderDetail = new OrderDetail();
                                 orderDetail.Order = order;
                                 orderDetail.ProductId = item.ProductId;
-
+                                orderDetail.ProductName = item.ProductName;
                                 orderDetail.Price = item.Price;
                                 orderDetail.Total = itemTotal;
                                 orderDetail.Quantity = item.Quantity;
@@ -390,14 +390,15 @@ namespace BaseProject.Controllers
                             var TongTien = decimal.Zero;
                             foreach (var sp in cart)
                             {
+                               thanhtien= sp.Price * sp.Quantity;
                                 strSanPham += "<tr>";
                                 strSanPham += "<td>" + sp.ProductName + "</td>";
                                 strSanPham += "<td>" + sp.Quantity + "</td>";
-                                strSanPham += "<td>" + BaseProject.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
+                                strSanPham += "<td>" + BaseProject.Common.Common.FormatNumber(thanhtien, 0) + "</td>";
                                 strSanPham += "</tr>";
-                                thanhtien += sp.Price * sp.Quantity;
+                                TongTien += thanhtien;
                             }
-                            TongTien = thanhtien;
+                           
 
                             // Load email template for customer
                             string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send2.html"));
@@ -408,7 +409,7 @@ namespace BaseProject.Controllers
                             contentCustomer = contentCustomer.Replace("{{Phone}}", order.PhoneNumber);
                             contentCustomer = contentCustomer.Replace("{{Email}}", order.Email);
                             contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}", order.Address);
-                            contentCustomer = contentCustomer.Replace("{{ThanhTien}}", BaseProject.Common.Common.FormatNumber(thanhtien, 0));
+                            //contentCustomer = contentCustomer.Replace("{{ThanhTien}}", BaseProject.Common.Common.FormatNumber(thanhtien, 0));
                             contentCustomer = contentCustomer.Replace("{{TongTien}}", BaseProject.Common.Common.FormatNumber(TongTien, 0));
                             BaseProject.Common.Common.SendMail("ShopOnline", "Đơn hàng #" + order.Code, contentCustomer.ToString(), order.Email);
 
@@ -446,7 +447,7 @@ namespace BaseProject.Controllers
         //{
         //    return View();
         //}
-        [Route("Order/SearchOrder/{orderCode}")]
+      
         public ActionResult SearchOrder(string orderCode)
         {
 
@@ -455,9 +456,7 @@ namespace BaseProject.Controllers
                 return View();
             }
             var order = Context.Orders.FirstOrDefault(p => p.Code == orderCode);
-            //var find =  from o in Context.Orders join od in Context.OrderDetails on o.Id equals od.Id where o.Code== orderCode
-            //            select o;
-
+       
 
             if (order != null)
             {

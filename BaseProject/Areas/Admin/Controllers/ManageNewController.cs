@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "adminTL")]
+    [Authorize(Roles = "Admin")]
     public class ManageNewController : BaseController<New>
     {
         ApplicationDbContext db = new ApplicationDbContext();

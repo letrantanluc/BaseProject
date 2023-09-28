@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "adminTL")]
+    [Authorize(Roles = "Admin")]
     public class ManageProductController : BaseController<Product>
     {
         // GET: Admin/Product

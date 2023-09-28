@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Controllers
 {
+    [Authorize]
     
     public class CartController : Controller
     {

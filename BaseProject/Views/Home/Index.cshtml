@@ -88,27 +88,27 @@
                 <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
 
                     <!-- Product 1 -->
-                    @foreach(var itemProduct in ViewBag.Products)
-                    {                       
-                    <div class="product-item cate-@itemProduct.Category.Id">
-                        <div class="product discount product_filter">
-                            <div class="product_image">
-                                <a href="@Url.Action("Details", "ProductUser", new { id = itemProduct.Id })">
-                                    <img src="@itemProduct.image" alt="">
-                                </a>
+                    @foreach (var itemProduct in ViewBag.Products)
+                    {
+                        <div class="product-item cate-@itemProduct.Category.Id">
+                            <div class="product discount product_filter">
+                                <div class="product_image">
+                                    <a href="@Url.Action("Details", "ProductUser", new { id = itemProduct.Id })">
+                                        <img src="@itemProduct.image" alt="">
+                                    </a>
+                                </div>
+                                <div class="favorite favorite_left"></div>
+                                @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>*@
+                                <div class="product_info">
+                                    <h6 class="product_name"><a href="single.html"> @itemProduct.ProductName</a></h6>
+                                    @*<div class="product_price">@itemProduct.Price<span>$590.00</span></div>*@
+                                    <div class="product_price">@string.Format("{0:N0}", @itemProduct.Price) VNĐ@*<span>$590.00</span>*@</div>
+                                </div>
                             </div>
-                            <div class="favorite favorite_left"></div>
-                            @*<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>*@
-                            <div class="product_info">
-                                <h6 class="product_name"><a href="single.html"> @itemProduct.ProductName</a></h6>
-                                @*<div class="product_price">@itemProduct.Price<span>$590.00</span></div>*@
-                                <div class="product_price">@string.Format("{0:N0}", @itemProduct.Price) VNĐ@*<span>$590.00</span>*@</div>
-                            </div>
+                            @*<div class="red_button add_to_cart_button add-to-cart" data-product-id="@itemProduct.Id"><a href="#">add to cart</a></div>*@
                         </div>
-                        @*<div class="red_button add_to_cart_button add-to-cart" data-product-id="@itemProduct.Id"><a href="#">add to cart</a></div>*@
-                    </div>
                     }
-                   
+
                 </div>
             </div>
         </div>
@@ -199,6 +199,10 @@
         </div>
     </div>
 </div>
+
+@Html.Action("Partial_News_Home", "News")
+
+
 
 <script>
     $(document).ready(function () {
