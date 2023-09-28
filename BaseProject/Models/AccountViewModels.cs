@@ -101,35 +101,35 @@ namespace BaseProject.Models
         [Display(Name = "FullName")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Không để trống số điện thoại")]
-        [RegularExpression(@"^(0[1-9]\d{8}|84[1-9]\d{8})$", ErrorMessage = "Số điện thoại không hợp lệ")]
-        [Display(Name = "PhoneNumber")]
-        public string PhoneNumber { get; set; }
+        //[Required(ErrorMessage = "Không để trống số điện thoại")]
+        //[RegularExpression(@"^(0[1-9]\d{8}|84[1-9]\d{8})$", ErrorMessage = "Số điện thoại không hợp lệ")]
+        //[Display(Name = "PhoneNumber")]
+        //public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Xin nhập đầy đủ địa chỉ")]
-        [Display(Name = "Address")]
-        public string Address { get; set; }
+        //[Required(ErrorMessage = "Xin nhập đầy đủ địa chỉ")]
+        //[Display(Name = "Address")]
+        //public string Address { get; set; }
 
         [Required]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
 
-        [Display(Name = "Introduction")]
-        public string Introduction { get; set; }
+        //[Display(Name = "Introduction")]
+        //public string Introduction { get; set; }
 
-        [Display(Name = "Gender")]
-        public string Gender { get; set; }
+        //[Display(Name = "Gender")]
+        //public string Gender { get; set; }
 
-        [Display(Name = "BirthOfDate")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime BirthOfDate { get; set; }
+        //[Display(Name = "BirthOfDate")]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        //public DateTime BirthOfDate { get; set; }
 
-        [Required(ErrorMessage = "CMND hoặc CCCD không được để trống!!")]
-        [RegularExpression(@"^\d{9}$|^\d{12}$", ErrorMessage = "Số CMND hoặc CCCD không hợp lệ")]
-        [Display(Name = "IdCard")]
-        public string IdCard { get; set; }
+        //[Required(ErrorMessage = "CMND hoặc CCCD không được để trống!!")]
+        //[RegularExpression(@"^\d{9}$|^\d{12}$", ErrorMessage = "Số CMND hoặc CCCD không hợp lệ")]
+        //[Display(Name = "IdCard")]
+        //public string IdCard { get; set; }
 
         [Required]
         [EmailAddress]

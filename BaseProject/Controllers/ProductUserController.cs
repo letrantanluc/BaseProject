@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BaseProject.Models;
 using BaseProject.Models.EF;
+using PagedList;
 
 namespace BaseProject.Controllers
 {
@@ -15,44 +16,91 @@ namespace BaseProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+
         // GET: ProductUser
-        public ActionResult Index()
-        {
-            var products = db.Products.Include(p => p.Category);
-            return View(products.ToList());
-        }
-       
-        public ActionResult ListProductCategory(int id)
+        public ActionResult Index(int? id)
         {
             //var products = db.Products.Include(p => p.Category);
             //return View(products.ToList());
-            if (id == null)
+
+
+            var items = db.Products.ToList();
+            if (id != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                items = items.Where(x => x.Id == id).ToList();
             }
-            var products = db.Products.Where(p => p.CategoryId == id).ToList();
-            if (products == null || products.Count == 0)
-            {
-                return HttpNotFound();
-            }
-            return View(products);
+            return View(items);
         }
+
+        //public ActionResult Index(string Searchtext, int? page)
+        //{
+        //    var pageSize = 10;
+        //    if (page == null)
+        //    {
+        //        page = 1;
+        //    }
+        //    IEnumerable<Category> items = db.Categories.OrderByDescending(x => x.Id);
+        //    if (!string.IsNullOrEmpty(Searchtext))
+        //    {
+
+        //        items = items.Where(x => x.Alias.Contains(Searchtext) || x.CategoryName.Contains(Searchtext));
+        //    }
+        //    var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+        //    items = items.ToPagedList(pageIndex, pageSize);
+        //    ViewBag.PageSize = pageSize;
+        //    ViewBag.Page = page;
+        //    return View(items);
+        //}
+
+
+        //public ActionResult ListProduct()
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var products = db.Products.Where(p => p.CategoryId == id).ToList();
+        //    if (products == null || products.Count == 0)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(products);
+        //}
 
         // GET: ProductUser/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Product product = db.Products.Find(id);
+            //if (product == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            //// Tăng giá trị ViewCount của sản phẩm
+            //db.Products.Attach(product);
+            //product.ViewCount = product.ViewCount + 1;
+            //db.Entry(product).Property(x => x.ViewCount).IsModified = true;
+            //db.SaveChanges();
+
+            //ViewBag.Created_At = product.Created_At.ToString("dd/MM/yyyy");
+            //ViewBag.Updated_At = product.Updated_At.ToString("dd/MM/yyyy");
+            //return View(product);
+
+            var item = db.Products.Find(id);
+            if (item != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Products.Attach(item);
+                item.ViewCount = item.ViewCount + 1;
+                db.Entry(item).Property(x => x.ViewCount).IsModified = true;
+                db.SaveChanges();
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Created_At = product.Created_At.ToString("dd/MM/yyyy");
-            ViewBag.Updated_At = product.Updated_At.ToString("dd/MM/yyyy");
-            return View(product);
+
+            return View(item);
         }
 
         // GET: ProductUser/Create

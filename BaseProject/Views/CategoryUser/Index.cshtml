@@ -7,48 +7,22 @@
 
 <h2 style="text-align:center">Category</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>*@
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>*@
-        <td>
-            @*@Html.ActionLink("Product", "ProductUser", new { id = item.CategoryName })*@ 
-
-            @*<div class="card-tools">
-            <a href="Product/Index" class="btn btn-primary">Product</a>
-        </div>*@
-            @*<div class="card-tools">
-                <a href="@Url.Action("Index", "ProductUser", new { id = item.Id })" class="btn btn-primary">Product</a>
-            </div>*@
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="panel panel-default" style="text-align: center">
+            <div class="panel panel-heading" style="font-weight: bold">
+                @item.CategoryName
+            </div>
+            <div class="panel-body">
+                <p>
+                    <img style="height:150px" src="@item.Images" />
+                </p>
+                <p>
+                    @item.Description
+                </p>
+            </div>
+            
+        </div>
+    </div>
 }
-
-</table>

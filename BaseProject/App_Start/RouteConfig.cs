@@ -19,6 +19,9 @@ namespace BaseProject
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] {"BaseProject.Controllers"}
             );
+
+         
+
         }
     }
 }

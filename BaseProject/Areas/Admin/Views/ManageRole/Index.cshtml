@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNet.Identity.EntityFramework
+@model IEnumerable<IdentityRole>
+@{
+    ViewBag.Title = "Danh sách Quyền";
+}
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Managerole" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<!-- Main content -->
+<section class="content">
+
+        <!-- Default box -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Danh sách Quyền</h3>
+                <div class="card-tools">
+                    <a href="/admin/Managerole/create" class="btn btn-file"><i class="fa fa-plus-circle"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Tên</th>
+                            <th>Hành động</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            var i = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="del('@item.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+</section>
+<!-- /.content -->
+<script type="text/javascript">
+    function del(id) {
+        if (confirm("Bạn chắc chắn muốn xóa?")) {
+            $.ajax({
+                url: "@Url.Action("Delete", "ManageRole")",
+                type: "POST",
+                data: { id: id },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            });
+        }
+    }
+</script>

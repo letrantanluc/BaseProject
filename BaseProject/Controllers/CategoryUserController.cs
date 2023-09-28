@@ -11,7 +11,7 @@ using BaseProject.Models.EF;
 
 namespace BaseProject.Controllers
 {
-    public class CategoryUserController : Controller
+    public class CategoryUserController : BaseController<Category>
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

@@ -1,4 +1,5 @@
 ﻿using BaseProject.Models;
+using BaseProject.Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +12,30 @@ namespace BaseProject.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
         public ActionResult Index()
         {
-
+            List<Product> products = db.Products.ToList();
+            ViewBag.Products = products;
             return View(db.Categories.ToList());
+           
         }
-
-        public ActionResult About()
+        public ActionResult Partial_Subcrice()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return PartialView();
         }
-
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult Subscribe(Subscribe req)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                db.Subscribes.Add(new Subscribe { Email = req.Email, CreatedDate = DateTime.Now });
+                db.SaveChanges();
+                return Json(new { Success = true });
+            }
+            return View("Partial_Subcrice", req);
         }
+
+
     }
 }

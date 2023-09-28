@@ -50,7 +50,7 @@ namespace BaseProject.Controllers
             string redirectUrl = System.Configuration.ConfigurationManager.AppSettings["redirectUrl_Momo"];
             string ipnUrl = System.Configuration.ConfigurationManager.AppSettings["ipnUrl_Momo"];
             string requestType = "captureWallet";
-            string orderInfo = "Thanh toan UniCafe #" + order.Code + "";
+            string orderInfo = "Thanh toan BaseStore #" + order.Code + "";
             string amount = string.Join("", order.Total.ToString("N0").Where(char.IsDigit)); // Xóa dấu phẩy
             string orderId = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();
@@ -64,9 +64,10 @@ namespace BaseProject.Controllers
                 "&orderId=" + orderId +
                 "&orderInfo=" + orderInfo +
                 "&partnerCode=" + partnerCode +
-            "&redirectUrl=" + redirectUrl +
-            "&requestId=" + requestId +
-                "&requestType=" + requestType;
+                "&redirectUrl=" + redirectUrl +
+                "&requestId=" + requestId +
+                "&requestType=" + requestType
+                ;
 
             MomoSecurity crypto = new MomoSecurity();
             //sign signature SHA256
@@ -74,22 +75,21 @@ namespace BaseProject.Controllers
 
             //build body json request
             JObject message = new JObject
-    {
-        { "partnerCode", partnerCode },
-        { "partnerName", "Test" },
-        { "storeId", "MomoTestStore" },
-        { "requestId", requestId },
-        { "amount", amount },
-        { "orderId", orderId },
-        { "orderInfo", orderInfo },
-        { "redirectUrl", redirectUrl },
-        { "ipnUrl", ipnUrl },
-        { "lang", "en" },
-        { "extraData", extraData },
-        { "requestType", requestType },
-        { "signature", signature }
-    };
-
+            {
+                { "partnerCode", partnerCode },
+                { "partnerName", "Test" },
+                { "storeId", "MomoTestStore" },
+                { "requestId", requestId },
+                { "amount", amount },
+                { "orderId", orderId },
+                { "orderInfo", orderInfo },
+                { "redirectUrl", redirectUrl },
+                { "ipnUrl", ipnUrl },
+                { "lang", "en" },
+                { "extraData", extraData },
+                { "requestType", requestType },
+                { "signature", signature }
+            };
             string responseFromMomo = PaymentRequest.sendPaymentRequest(endPoint, message.ToString());
             JObject jmessage = JObject.Parse(responseFromMomo);
             return Redirect(jmessage.GetValue("payUrl").ToString());

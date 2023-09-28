@@ -38,6 +38,7 @@ namespace BaseProject.Models
         {
         }
 
+        public DbSet<Analytic> Analytics { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Message> Messages { get; set; }
@@ -51,8 +52,9 @@ namespace BaseProject.Models
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<New> News { get; set; }
-       
-        
+        public DbSet<SystemSetting> SystemSettings { get; set; }
+
+        public DbSet<Subscribe> Subscribes { get; set; }
 
         public static ApplicationDbContext Create()
         {

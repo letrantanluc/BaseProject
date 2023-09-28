@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BaseProject.Controllers
 {
+    [Authorize]
     
     public class CartController : Controller
     {
@@ -30,7 +31,7 @@ namespace BaseProject.Controllers
             }
             return View(cart);
         }
-        [Authorize]
+       
 
         [HttpPost]
         public ActionResult AddToCart(int productId, int quantity)
@@ -60,11 +61,17 @@ namespace BaseProject.Controllers
         {
             var cart = _cartManager.GetCartItems();
             var item = cart.FirstOrDefault(x => x.Id == itemId);
+            var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
             if (item == null)
             {
                 return Json(new { success = false, message = "Sản phẩm không tồn tại trong giỏ hàng" });
             }
-
+            if(product.Quantity < quantity)
+            {
+                item.Quantity = product.Quantity;
+                _cartManager.UpdateCart(cart);
+                return Json(new { success = false, message = "Sản phẩm không có đủ số lượng" });
+            }    
             item.Quantity = quantity;
 
             _cartManager.UpdateCart(cart);

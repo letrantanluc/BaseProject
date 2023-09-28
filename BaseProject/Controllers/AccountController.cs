@@ -87,7 +87,7 @@ namespace BaseProject.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Đăng Nhập không hợp lệ.");
                     return View(model);
             }
         }
@@ -152,7 +152,7 @@ namespace BaseProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email , FullName = model.FullName , Address = model.Address , PhoneNumber  = model.PhoneNumber , Introduction = model.Introduction , Gender = model.Gender , BirthOfDate  = model.BirthOfDate , IdCard  = model.IdCard };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email , FullName = model.FullName  };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
